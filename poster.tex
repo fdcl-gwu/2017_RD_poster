@@ -37,8 +37,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	TITLE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{\Large Your super awesome title}
-\author{\Large \textcolor{white}{Your name}}
+\title{\Large Spacecraft Trajectory Design Near Asteroid 4769 Castalia}
+\author{\Large \textcolor{white}{Shankar Kulumani}}
 \institute{\large Flight Dynamics and Controls Laboratory (Dr. Taeyoung Lee)\\Department of Mechanical and Aerospace Engineering, School of Engineering and Applied Science}
 
 %----------------------------------------------------------------------------------------
@@ -52,37 +52,45 @@
 %---------------------------------------------------------------------------------------
 \begin{column}{\onecolwidth} % first column start
 
-\begin{block}{Title of the block} % Background block
+\begin{block}{Introduction} % Background block
 	\begin{itemize}
-		\item You can make a list
+		\item Asteroids and comets are of significant interest 
 		\begin{itemize}
-			\item Also a nested list
+			\item Insight into early solar system formation
 		\end{itemize}
-		\item Lots of important details
+		\item Near-Earth asteroids (NEAs) are especially interesting 
 		\begin{itemize}
-			\item More fancy stuff no one will understand
-			\item Probably good to include a picture soon to fight off boredom
+			\item Orbit close to the Earth and are easily accessible
+			\item Many asteroids hold vast quantities of useful materials
+			\begin{itemize}
+				\item Asteroid mining: Precious metals, propulsion fuels, semiconductor materials
+			\end{itemize}
 		\end{itemize}
+		\item High probability of future asteroid impacts
 	\end{itemize}
 	\vspace{0.2in}
 	\begin{figure}
         \begin{subfigure}[b]{0.4\columnwidth}%
-                \includegraphics[height=8.5cm]{hubble}%
-                \caption*{Hubble}%
-                \label{fig:hubble}%
-        \end{subfigure}%
-        \hfill%
+	        \includegraphics[height=8.5cm]{figures/asteroid-mining-feature-8.jpg}%
+	        \caption*{Asteroid Mining}%
+        \end{subfigure}~\hfill 
         \begin{subfigure}[b]{0.4\columnwidth}%
-                \includegraphics[height=8.5cm]{ors-1}%
-                \caption*{Agile S/C}%
-                \label{fig:ors}%
+            \includegraphics[height=8.5cm]{figures/asteroid-alamy.jpg}%
+            \caption*{Asteroid Impact}%
         \end{subfigure}%
         \hfill%
-		\label{fig:intro}
 	\end{figure}
 \end{block} % end of background block
 
-\begin{block}{Another block of text few will read}
+\begin{block}{Motivation}
+	\begin{itemize}
+		\item \Emph{You can emphasize stuff} 
+		\item The blocks are all top aligned. 
+		\item You can change this in the command \texttt{column}
+	\end{itemize}
+\end{block} 
+
+\begin{block}{Background}
 	\begin{itemize}
 		\item \Emph{You can emphasize stuff} 
 		\item The blocks are all top aligned. 
@@ -97,7 +105,7 @@
 %---------------------------------------------------------------------------------------
 \begin{column}{\twocolwidth} % second column start
 
-\begin{block}{The big middle block} % structure block
+\begin{block}{Optimal Control - Reachability} % structure block
 	\begin{minipage}{0.5\columnwidth} % left half of this block
 	\begin{itemize}
 		\item This block is split into two using \texttt{minipage}
@@ -123,7 +131,7 @@
 	\end{itemize}
 \end{block} % end of structure block
 
-\begin{block}{Another block} % optimal control block
+\begin{block}{Numerical Simulation} % optimal control block
 	\begin{itemize}
 		\item \Emph{Spans the entire column width} 
 		\begin{align*}
@@ -140,7 +148,7 @@
 %---------------------------------------------------------------------------------------
 \begin{column}{\onecolwidth} % third column start
 
-\begin{block}{This is the third column environment} % results block
+\begin{block}{Novel benefits} % results block
 	\begin{itemize}
 		\item Make sure to talk about how awesome your research is
 	\end{itemize}
