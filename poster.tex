@@ -85,11 +85,25 @@
 	\end{figure}
 \end{block} % end of background block
 
-\begin{block}{Motivation}
+\begin{block}{Technical Challenges}
 	\begin{itemize}
-		\item \Emph{You can emphasize stuff} 
-		\item The blocks are all top aligned. 
-		\item You can change this in the command \texttt{column}
+		\item Low-thrust propulsion systems offer innovative options
+		\begin{itemize}
+			\item Electric propulsion offers much greater efficiency
+			\item Allows for greater velocity change with a reduced mass cost
+			\item Key component for long duration missions with frequent thrusting
+			\item Requires new methods of design
+		\end{itemize}
+		\item Optimal trajectory design is complicated
+		\begin{itemize}
+			\item Highly nonlinear and chaotic dynamics requires intuition by designer
+			\item Using low-thrust propulsion adds additional difficulties in accurately capturing the small perturbations
+		\end{itemize}
+		\item Astrodynamic trajectory design typically uses direct optimal control
+		\begin{itemize}
+			\item Large nonlinear programming problem inherently approximates the true optimal solution
+			\item High dimensionality of the solution makes it extremely computationally intensive
+		\end{itemize}
 	\end{itemize}
 \end{block} 
 
