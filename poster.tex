@@ -1,11 +1,14 @@
 \documentclass[final, usenames, dvipsnames]{beamer}
 \mode<presentation>{\usetheme{GWU}}
 \usepackage{poster_packages}
+\usepackage{tikz_packages}
+\tdplotsetmaincoords{60}{125} % view angle in spherical coordinates
+\input{my_macros}
 
 \DeclareSIUnit\year{yr}
 
 \usepackage[orientation=landscape, width=121.92cm, height=91.44cm,scale=1.24,debug]{beamerposter} 
-%\beamertemplategridbackground[0.1in] % grid for aligning stuff
+\beamertemplategridbackground[1cm] % grid for aligning stuff
 
 %\setlength{\abovecaptionskip}{0.1cm}
 %\setlength{\belowcaptionskip}{-0.3cm}
@@ -140,24 +143,31 @@
 %---------------------------------------------------------------------------------------
 \begin{column}{\twocolwidth} % second column start
 
-\begin{block}{Optimal Control - Reachability} % structure block
+\begin{block}{Dynamics about the asteroid 4769 Castalia} % structure block
 	\begin{minipage}{0.5\columnwidth} % left half of this block
 	\begin{itemize}
-		\item This block is split into two using \texttt{minipage}
-			\begin{align*}
-				\mathsf{S}^2 = \left\{q \in \mathsf{R}^3 \,  \vert \, \| q \| = 1 \right\}
-			\end{align*}
-		\item Lots of fancy equations
+		\item Dynamics are very similar to the famous three-body problem
+			\[
+			\begin{bmatrix} \dot{\vecbf{r}} \\ \dot{\vecbf{v}} \end{bmatrix} =
+			\begin{bmatrix}\vecbf{v} \\ \vecbf{g} \parenth{\vecbf{r}} + \vecbf{h}\parenth{\vecbf{v}} + \vecbf{u} \end{bmatrix} 
+			\]
+		\item Huge history of analytical tools allow for great insight into the dynamics
+		\item Analytical insight is critical to understanding the free motion around an asteroid
+		\begin{itemize}
+			\item We require an accurate understanding of the motion under the influence of gravity alone
+			\item Efficient use of the limited oboard fuel is dependent on exploiting the natural dynamics of the asteroid environment
+		\end{itemize}
+		\item Jacobi Integral - single constant of motion which bounds the feasible regions in terms of ``energy''
+			\[
+			J \parenth{\vecbf{r}, \vecbf{v}} = \frac{1}{2} \omega^2 \parenth{x^2 + y^2} + U(\vecbf{r}) - \frac{1}{2} \parenth{\dot{x}^2 + \dot{y}^2 + \dot{z}^2} 
+			\]
 	\end{itemize}
 	\end{minipage}% end of left half of block
 	\begin{minipage}{0.5\columnwidth}% right half of block
-		\begin{itemize}
-			\item Now we're into the right half of the block
-				\begin{align*}
-					\Psi(R) = A(R) B(R) 
-				\end{align*}
-			\item More equations few will understand or care about
-		\end{itemize}
+		\begin{figure}
+			\includegraphics[trim={8cm 3cm 7cm 3cm},clip,width=\columnwidth]{figures/castalia.pdf}
+			\caption*{Asteroid 4769 Castalia}
+		\end{figure}
 	\end{minipage}%end of right half of block
 	
 	\begin{itemize}
@@ -166,7 +176,98 @@
 	\end{itemize}
 \end{block} % end of structure block
 
-\begin{block}{Numerical Simulation} % optimal control block
+\begin{block}{Reachability on the \Poincare section} % optimal control block
+
+	\begin{figure}
+	\centering
+	\begin{scaletikzpicturetowidth}{0.5\columnwidth}
+    \begin{tikzpicture}[tdplot_main_coords,
+      poincare/.style={opacity=.2,very thick,fill=blue},
+      orbit/.style={very thick,black},
+      orbit hidden/.style={very thick,dashed},
+      grid/.style={very thin,gray!50},
+      axis/.style={->,blue,thick}, scale=\tikzscale]
+
+    % nodes for the poincare section
+    \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
+    \node[] (upper_left) at (0,1,5) {};
+    \node[] (lower_left) at (0,1,0) {};
+    \node[] (lower_right) at (0,5,0) {};
+
+    % draw poincare section
+    \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
+    
+    % draw a periodic orbit
+    \coordinate (center) at (0,0,2);
+    \node[below right] (x0) at (0,2,2) {\(\vecbf{q}_0\)};
+    \filldraw (0,2,2) circle (3pt);
+
+    \node[below right] (x1) at (0,3,2) {\(\vecbf{q}_1\)};
+    \filldraw (0,3,2) circle (3pt);
+
+    \tdplotdrawarc[orbit hidden]{(center)}{2}{90}{190}{}{};
+    \tdplotdrawarc[orbit,<-]{(center)}{2}{-170}{90}{}{};
+
+    \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{199}{}{};
+    \tdplotdrawarc[orbit,<-]{(center)}{3}{-161}{90}{}{};
+
+	\end{tikzpicture}
+    \end{scaletikzpicturetowidth}
+	\caption{Diagram of the \Poincare map\label{fig:poincare_map}}
+\end{figure}
+
+\begin{figure}
+	\centering
+%	\includegraphics[width=0.5\textwidth]{reachability_set_hand}
+	\begin{scaletikzpicturetowidth}{0.5\textwidth}
+	\begin{tikzpicture}[tdplot_main_coords,
+          poincare/.style={opacity=.2,very thick,fill=blue},
+          orbit/.style={very thick,black},
+          orbit hidden/.style={very thick,dashed},
+          grid/.style={very thin,black},
+          axis/.style={->,blue,thick},
+          reachability/.style={thick,blue},scale=\tikzscale]
+
+        % nodes for the poincare section
+        \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
+        \node[] (upper_left) at (0,1,5) {};
+        \node[] (lower_left) at (0,1,0) {};
+        \node[] (lower_right) at (0,5,0) {};
+
+        % draw poincare section
+        \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
+        
+        % draw a periodic orbit
+        \coordinate (center) at (0,0,2);
+        \node[label=below:\(\vecbf{x}_n\)] (x0) at (0,3,2) {};
+        % \node[label=below:\(\vecbf{x}_n\)] at (x0) {};
+        \filldraw (x0) circle (3pt);
+
+        % \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{200}{}{};
+        \tdplotdrawarc[orbit,<-]{(center)}{3}{-160}{90}{}{};
+
+        % draw reachability set on the poincare section
+        \coordinate (reach) at (0,4.5,2);
+        \tdplotsetthetaplanecoords{90}
+
+        \draw[tdplot_rotated_coords,grid] (x0) -- (reach);
+        \draw[tdplot_rotated_coords,grid] (x0) -- ++(-45:1.5);
+
+        \tdplotdrawarc[tdplot_rotated_coords,grid]{(x0)}{0.5}{-45}{90}{above}{\(\phi\)};
+
+        % draw terminal state on reachability set
+        \node[tdplot_rotated_coords,label=above:\(\vecbf{x}_f\)] (xf) at ($ (x0)+(-45:1.5) $) {};
+        \filldraw (xf) circle (3pt);
+
+        \node[tdplot_rotated_coords,label=below:\(J\)] at (xf) {};
+
+        \tdplotdrawarc[tdplot_rotated_coords,reachability]{(x0)}{1.5}{0}{360}{}{};
+        % place
+    \end{tikzpicture}
+	\end{scaletikzpicturetowidth}
+	\caption{Reachability set on a \Poincare section\label{fig:reachability_set}}
+\end{figure}
+
 	\begin{itemize}
 		\item \Emph{Spans the entire column width} 
 		\begin{align*}
