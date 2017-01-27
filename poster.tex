@@ -336,19 +336,15 @@
     \end{itemize}
     \begin{figure}[htbp] 
         \centering 
-        \begin{subfigure}[htbp]{0.3\textwidth} 
-            \includegraphics[width=\textwidth]{figures/phi1.pdf} 
-            \caption*{\(\phi_1\)}
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+            \includegraphics[width=\textwidth]{figures/poincare_xvsxdot.pdf} 
+            \caption*{\(x~\text{vs.}~\dot{x} \)}
         \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-        \begin{subfigure}[htbp]{0.3\textwidth} 
-            \includegraphics[width=\textwidth]{figures/phi2.pdf} 
-            \caption*{\(\phi_2\)} 
-        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-        \begin{subfigure}[htbp]{0.3\textwidth} 
-            \includegraphics[width=\textwidth]{figures/phi3.pdf} 
-            \caption*{\(\phi_3\)} 
-        \end{subfigure} 
-        \caption*{Directions on \Poincare Section}
+        \begin{subfigure}[htbp]{0.5\textwidth} 
+            \includegraphics[width=\textwidth]{figures/poincare_zvszdot.pdf} 
+            \caption*{\(z~\text{vs.}~\dot{z} \)} 
+        \end{subfigure}
+        \caption*{\Poincare sections}
         
     \end{figure}
     \begin{figure}[htbp] 
@@ -362,8 +358,12 @@
 
 \begin{block}{Conclusions} % conclusion
 	\begin{itemize}
-		\item Remind them about everything you already told them
-		\item They should be quite amazed by this point
+		\item Orbital transfer around an asteroid using \Emph{reachability sets}
+		\item Automatically gain insight into the feasible region of motion for the spacecraft
+        \item Future work will extend this principle to landing trajectories
+        \begin{itemize}
+            \item Irregular shape of asteroids requires innovative techniques for controlling both position and orientation
+        \end{itemize}
 	\end{itemize}
 \end{block} % conclusion
 \end{column}  % third column end
