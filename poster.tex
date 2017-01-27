@@ -169,112 +169,144 @@
 			\caption*{Asteroid 4769 Castalia}
 		\end{figure}
 	\end{minipage}%end of right half of block
-	
-	\begin{itemize}
-		\item All of this will span the width of the entire column.
-		\item Since it is after the \texttt{minipage} environment
-	\end{itemize}
+
 \end{block} % end of structure block
 
 \begin{block}{Reachability on the \Poincare section} % optimal control block
 
-	\begin{figure}
-	\centering
-	\begin{scaletikzpicturetowidth}{0.5\columnwidth}
-    \begin{tikzpicture}[tdplot_main_coords,
-      poincare/.style={opacity=.2,very thick,fill=blue},
-      orbit/.style={very thick,black},
-      orbit hidden/.style={very thick,dashed},
-      grid/.style={very thin,gray!50},
-      axis/.style={->,blue,thick}, scale=\tikzscale]
+    \begin{figure}[htbp] 
+        \centering 
+        \begin{subfigure}[htbp]{0.5\columnwidth} 
+            \begin{scaletikzpicturetowidth}{\columnwidth}
+            \begin{tikzpicture}[tdplot_main_coords,
+            poincare/.style={opacity=.2,very thick,fill=blue},
+            orbit/.style={very thick,black},
+            orbit hidden/.style={very thick,dashed},
+            grid/.style={very thin,gray!50},
+            axis/.style={->,blue,thick}, scale=\tikzscale]
 
-    % nodes for the poincare section
-    \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
-    \node[] (upper_left) at (0,1,5) {};
-    \node[] (lower_left) at (0,1,0) {};
-    \node[] (lower_right) at (0,5,0) {};
+            % nodes for the poincare section
+            \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
+            \node[] (upper_left) at (0,1,5) {};
+            \node[] (lower_left) at (0,1,0) {};
+            \node[] (lower_right) at (0,5,0) {};
 
-    % draw poincare section
-    \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
-    
-    % draw a periodic orbit
-    \coordinate (center) at (0,0,2);
-    \node[below right] (x0) at (0,2,2) {\(\vecbf{q}_0\)};
-    \filldraw (0,2,2) circle (3pt);
+            % draw poincare section
+            \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
 
-    \node[below right] (x1) at (0,3,2) {\(\vecbf{q}_1\)};
-    \filldraw (0,3,2) circle (3pt);
+            % draw a periodic orbit
+            \coordinate (center) at (0,0,2);
+            \node[below right] (x0) at (0,2,2) {\(\vecbf{q}_0\)};
+            \filldraw (0,2,2) circle (3pt);
 
-    \tdplotdrawarc[orbit hidden]{(center)}{2}{90}{190}{}{};
-    \tdplotdrawarc[orbit,<-]{(center)}{2}{-170}{90}{}{};
+            \node[below right] (x1) at (0,3,2) {\(\vecbf{q}_1\)};
+            \filldraw (0,3,2) circle (3pt);
 
-    \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{199}{}{};
-    \tdplotdrawarc[orbit,<-]{(center)}{3}{-161}{90}{}{};
+            \tdplotdrawarc[orbit hidden]{(center)}{2}{90}{190}{}{};
+            \tdplotdrawarc[orbit,<-]{(center)}{2}{-170}{90}{}{};
 
-	\end{tikzpicture}
-    \end{scaletikzpicturetowidth}
-	\caption{Diagram of the \Poincare map\label{fig:poincare_map}}
-\end{figure}
+            \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{199}{}{};
+            \tdplotdrawarc[orbit,<-]{(center)}{3}{-161}{90}{}{};
 
-\begin{figure}
-	\centering
-%	\includegraphics[width=0.5\textwidth]{reachability_set_hand}
-	\begin{scaletikzpicturetowidth}{0.5\textwidth}
-	\begin{tikzpicture}[tdplot_main_coords,
-          poincare/.style={opacity=.2,very thick,fill=blue},
-          orbit/.style={very thick,black},
-          orbit hidden/.style={very thick,dashed},
-          grid/.style={very thin,black},
-          axis/.style={->,blue,thick},
-          reachability/.style={thick,blue},scale=\tikzscale]
+            \end{tikzpicture}
+            \end{scaletikzpicturetowidth}
+            \caption*{Diagram of the \Poincare map\label{fig:poincare_map}}
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.5\columnwidth} 
+            \begin{scaletikzpicturetowidth}{\columnwidth}
+            \begin{tikzpicture}[tdplot_main_coords,
+            poincare/.style={opacity=.2,very thick,fill=blue},
+            orbit/.style={very thick,black},
+            orbit hidden/.style={very thick,dashed},
+            grid/.style={very thin,black},
+            axis/.style={->,blue,thick},
+            reachability/.style={thick,blue},scale=\tikzscale]
 
-        % nodes for the poincare section
-        \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
-        \node[] (upper_left) at (0,1,5) {};
-        \node[] (lower_left) at (0,1,0) {};
-        \node[] (lower_right) at (0,5,0) {};
+            % nodes for the poincare section
+            \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
+            \node[] (upper_left) at (0,1,5) {};
+            \node[] (lower_left) at (0,1,0) {};
+            \node[] (lower_right) at (0,5,0) {};
 
-        % draw poincare section
-        \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
-        
-        % draw a periodic orbit
-        \coordinate (center) at (0,0,2);
-        \node[label=below:\(\vecbf{x}_n\)] (x0) at (0,3,2) {};
-        % \node[label=below:\(\vecbf{x}_n\)] at (x0) {};
-        \filldraw (x0) circle (3pt);
+            % draw poincare section
+            \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
 
-        % \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{200}{}{};
-        \tdplotdrawarc[orbit,<-]{(center)}{3}{-160}{90}{}{};
+            % draw a periodic orbit
+            \coordinate (center) at (0,0,2);
+            \node[label=below:\(\vecbf{x}_n\)] (x0) at (0,3,2) {};
+            % \node[label=below:\(\vecbf{x}_n\)] at (x0) {};
+            \filldraw (x0) circle (3pt);
 
-        % draw reachability set on the poincare section
-        \coordinate (reach) at (0,4.5,2);
-        \tdplotsetthetaplanecoords{90}
+            % \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{200}{}{};
+            \tdplotdrawarc[orbit,<-]{(center)}{3}{-160}{90}{}{};
 
-        \draw[tdplot_rotated_coords,grid] (x0) -- (reach);
-        \draw[tdplot_rotated_coords,grid] (x0) -- ++(-45:1.5);
+            % draw reachability set on the poincare section
+            \coordinate (reach) at (0,4.5,2);
+            \tdplotsetthetaplanecoords{90}
 
-        \tdplotdrawarc[tdplot_rotated_coords,grid]{(x0)}{0.5}{-45}{90}{above}{\(\phi\)};
+            \draw[tdplot_rotated_coords,grid] (x0) -- (reach);
+            \draw[tdplot_rotated_coords,grid] (x0) -- ++(-45:1.5);
 
-        % draw terminal state on reachability set
-        \node[tdplot_rotated_coords,label=above:\(\vecbf{x}_f\)] (xf) at ($ (x0)+(-45:1.5) $) {};
-        \filldraw (xf) circle (3pt);
+            \tdplotdrawarc[tdplot_rotated_coords,grid]{(x0)}{0.5}{-45}{90}{above}{\(\phi\)};
 
-        \node[tdplot_rotated_coords,label=below:\(J\)] at (xf) {};
+            % draw terminal state on reachability set
+            \node[tdplot_rotated_coords,label=above:\(\vecbf{x}_f\)] (xf) at ($ (x0)+(-45:1.5) $) {};
+            \filldraw (xf) circle (3pt);
 
-        \tdplotdrawarc[tdplot_rotated_coords,reachability]{(x0)}{1.5}{0}{360}{}{};
-        % place
-    \end{tikzpicture}
-	\end{scaletikzpicturetowidth}
-	\caption{Reachability set on a \Poincare section\label{fig:reachability_set}}
-\end{figure}
+            \node[tdplot_rotated_coords,label=below:\(J\)] at (xf) {};
+
+            \tdplotdrawarc[tdplot_rotated_coords,reachability]{(x0)}{1.5}{0}{360}{}{};
+            % place
+            \end{tikzpicture}
+            \end{scaletikzpicturetowidth}
+            \caption*{Reachability set on a \Poincare section\label{fig:reachability_set}}
+        \end{subfigure}
+    \end{figure}
+
 
 	\begin{itemize}
-		\item \Emph{Spans the entire column width} 
-		\begin{align*}
-			\text{Initial: } R_0 =  \exp(\ang{225} \times \frac{\pi}{180} \hat{e}_3) \quad \text{Final: } R_d = I \quad \text{Disturbance: } \Delta = \begin{bmatrix} 0.2 & 0.2 & 0.2 \end{bmatrix}^T
-		\end{align*}
-		\item SCIENCE!
+		\item \Emph{\Poincare} map is a useful tool for the analysis of dynamical systems
+        \begin{itemize}
+            \item Rather than considering the entire state (6D position and velocity) we simply investigate the intersections with a lower dimensional space
+            \item This reduces the complexity of analysising the dynamics and allows for visualization of highly complex dynamic interactions
+        \end{itemize} 
+        \item A periodic orbit on the \Poincare map is identified by fixed points \( \vecbf{q}_0 \) and \( \vecbf{q}_1 \)
+        \item Using the low-thrust propulsion system of the spacecraft we can enlarge the space that is achievable 
+        \begin{itemize}
+            \item \Emph{Reachability Set} - the set of states which are attainable subject to the constraints of the system
+            \item The thruster of the spacecraft is used to design a transfer trajectory by repeatedly maximizing the reachability set
+        \end{itemize}
+
 	\end{itemize}
+
+    \begin{minipage}{0.5\columnwidth}
+    \begin{itemize}
+        \item \Emph{Optimal Control} is used to calculate the reachability set
+            \[
+            J = -\frac{1}{2} \left( \vecbf{x}(t_f) - \vecbf{x}_{n}(t_f)\right)^T Q \left( \vecbf{x}(t_f) - \vecbf{x}_{n}(t_f)\right) 
+            \]
+        \item The goal is to maximize the distance on the \Poincare section using the effect of the low thrust propulsion
+        \item The thruster is limited to ensure a realistic scenario
+        \[
+            c(\vecbf{u}) = \vecbf{u}^T \vecbf{u} - u_m^2 \leq 0 
+        \]
+    \end{itemize}
+    
+    \end{minipage}%
+    \begin{minipage}{0.5\columnwidth}
+        \begin{itemize}
+            \item A series of constraints ensures that we will intersect the \Poincare section
+        \end{itemize}
+                \begin{align*}\label{eq:terminal_constraints}
+            \begin{split}
+                m_1 &= y = 0  \\
+                m_2 &= \parenth{\sin \phi_{1_{d}}} \parenth{ x_1^2 + x_2^2 + x_3^2 + x_4^2} - x_1^2 = 0 \\
+                m_3 &= \parenth{\sin \phi_{2_{d}}} \parenth{ x_2^2 + x_3^2 + x_4^2} - x_2^2 = 0\\
+                m_4 &= \parenth{\sin \phi_{3_{d}}} \parenth{ 2 x_3^2 + 2 x_3 \sqrt{x_4^2 + 2 x_4^2}} - x_3 - \sqrt{x_4^2 + x_3^2} = 0 
+            \end{split}
+        \end{align*}
+
+    \end{minipage}
 \end{block} % end of optimal control block
 \end{column}
 
