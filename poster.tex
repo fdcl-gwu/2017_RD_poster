@@ -318,8 +318,46 @@
 
 \begin{block}{Simulation Results} % results block
 	\begin{itemize}
-		\item Make sure to talk about how awesome your research is
-	\end{itemize}
+		\item A transfer around the asteroid 4769 Castalia is completed
+        \begin{itemize}
+            \item Discovered in 1989, Castalia is a potentially hazardous asteroid and passes close to the Earth
+            \item In 1989, Castalia passed close enough to the Earth to allow for high resolution radar imagery
+        \end{itemize}
+        \item We wish to transfer a spacecraft between two periodic orbits of 4769 Castalia
+        \begin{itemize}
+            \item The thruster is modeled after current state of the art low thrust propulsion systems
+            \item Combining multiple iterations of the \Emph{rechability} computation allows for general transfers
+        \end{itemize}
+        \item Transfer is computed by combining four iterations of the reachability set
+        \begin{itemize}
+            \item Each iteration of the reachability set enlarges the achievable states
+            \item From the reachability set we chose a direction which gets us closest to the target
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}[htbp] 
+        \centering 
+        \begin{subfigure}[htbp]{0.3\textwidth} 
+            \includegraphics[width=\textwidth]{figures/phi1.pdf} 
+            \caption*{\(\phi_1\)}
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.3\textwidth} 
+            \includegraphics[width=\textwidth]{figures/phi2.pdf} 
+            \caption*{\(\phi_2\)} 
+        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+        \begin{subfigure}[htbp]{0.3\textwidth} 
+            \includegraphics[width=\textwidth]{figures/phi3.pdf} 
+            \caption*{\(\phi_3\)} 
+        \end{subfigure} 
+        \caption*{Directions on \Poincare Section}
+        
+    \end{figure}
+    \begin{figure}[htbp] 
+        \centering 
+        \includegraphics[width=\columnwidth]{figures/trajectory_3d.pdf}
+        \caption*{Transfer Trajectory}
+    \end{figure}
+
+
 \end{block} % end of results block
 
 \begin{block}{Conclusions} % conclusion
