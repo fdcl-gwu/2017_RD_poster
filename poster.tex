@@ -164,55 +164,92 @@
 	\end{itemize}
 	\end{minipage}% end of left half of block
 	\begin{minipage}{0.5\columnwidth}% right half of block
+        \begin{itemize}
+            \item Spacecraft is operating around \Emph{4769 Castalia}
+            \begin{itemize}
+                \item Discovered in 1989, Castalia is a potentially hazardous asteroid and passes close to the Earth
+                \item In 1989, Castalia passed close enough to allow for high resolution radar imagery
+                \item High resolution shape is used in \Emph{polyhedral gravity model}
+            \end{itemize}
+        \end{itemize}
 		\begin{figure}
-			\includegraphics[trim={8cm 3cm 7cm 3cm},clip,width=\columnwidth]{figures/castalia.pdf}
+			\includegraphics[trim={8cm 3cm 7cm 3cm},clip,width=0.5\columnwidth]{figures/castalia.pdf}
 			\caption*{Asteroid 4769 Castalia}
 		\end{figure}
 	\end{minipage}%end of right half of block
 
 \end{block} % end of structure block
 
+\begin{block}{Simulation Results} % results block
+    \begin{minipage}[t]{0.5\columnwidth}
+    \begin{itemize}
+        \item Transfer between two periodic orbits of 4769 Castalia
+        \begin{itemize}
+            \item Thruster represents a current electric propulsion \( \approx \SI{600}{\milli\newton}\)
+            \item Combining multiple iterations of the \Emph{rechability} computation allows for general transfers
+        \end{itemize}
+        \item Combining four iterations of the reachability set
+        \begin{itemize}
+            \item Each iteration of the reachability set enlarges the achievable states
+            \item We choose a direction on the reachability set which lies closest to the target
+            \[
+                d = \sqrt{k_x \parenth{x_f - x_t }^2 + k_z \parenth{z_f - z_t }^2 + k_{\dot{x}}\parenth{\dot{x}_f - \dot{x}_t }^2 + k_{\dot{z}}\parenth{\dot{z}_f - \dot{z}_t }^2}
+            \]
+            \item This iterative approach avoids the difficulty in choosing accurate initial guesses for optimization
+        \end{itemize}
+    \end{itemize}
+    \end{minipage}~
+    \begin{minipage}[t]{0.5\columnwidth}
+    \begin{itemize}
+        \item \Emph{Optimal Control} is used to calculate the reachability set
+            \[
+            J = -\frac{1}{2} \left( \vecbf{x}(t_f) - \vecbf{x}_{n}(t_f)\right)^T Q \left( \vecbf{x}(t_f) - \vecbf{x}_{n}(t_f)\right) 
+            \]
+        \item Maximize the distance on the \Poincare section using the low thrust propulsion
+        \item Thruster magnitude is limited by physical system
+        \[
+            c(\vecbf{u}) = \vecbf{u}^T \vecbf{u} - u_m^2 \leq 0 
+        \]
+        \item Terminal constraints ensure intersection with \Poincare section
+    \end{itemize}
+        \begin{align*}\label{eq:terminal_constraints}
+            \begin{split}
+                m_1 &= y = 0  \\
+                m_2 &= \parenth{\sin \phi_{1_{d}}} \parenth{ x_1^2 + x_2^2 + x_3^2 + x_4^2} - x_1^2 = 0 \\
+                m_3 &= \parenth{\sin \phi_{2_{d}}} \parenth{ x_2^2 + x_3^2 + x_4^2} - x_2^2 = 0\\
+                m_4 &= \parenth{\sin \phi_{3_{d}}} \parenth{ 2 x_3^2 + 2 x_3 \sqrt{x_4^2 + 2 x_4^2}} - x_3 - \sqrt{x_4^2 + x_3^2} = 0 
+            \end{split}
+        \end{align*}
+    \end{minipage}
+
+\begin{figure}[htbp] 
+    \centering 
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth]{figures/trajectory.pdf} 
+        \caption{Equatorial Transfer Trajectory}
+    \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+    \begin{subfigure}[htbp]{0.5\textwidth} 
+        \includegraphics[width=\textwidth]{figures/trajectory_3d.pdf} 
+        \caption*{3D Transfer Trajectory}
+    \end{subfigure}
+ 
+\end{figure}
+    
+\vspace{2cm}
+\end{block} % end of results block
+
+\end{column}
+
+
+%-----------------------------------------------------------------------------------------
+% THIRD (RIGHT) COLUMN
+%---------------------------------------------------------------------------------------
+\begin{column}{\onecolwidth} % third column start
+
 \begin{block}{Reachability on the \Poincare section} % optimal control block
 
     \begin{figure}[htbp] 
         \centering 
-        \begin{subfigure}[htbp]{0.5\columnwidth} 
-            \begin{scaletikzpicturetowidth}{\columnwidth}
-            \begin{tikzpicture}[tdplot_main_coords,
-            poincare/.style={opacity=.2,very thick,fill=blue},
-            orbit/.style={very thick,black},
-            orbit hidden/.style={very thick,dashed},
-            grid/.style={very thin,gray!50},
-            axis/.style={->,blue,thick}, scale=\tikzscale]
-
-            % nodes for the poincare section
-            \node[label=above:\(\Sigma\)] (upper_right) at (0,5,5) {};
-            \node[] (upper_left) at (0,1,5) {};
-            \node[] (lower_left) at (0,1,0) {};
-            \node[] (lower_right) at (0,5,0) {};
-
-            % draw poincare section
-            \draw[poincare] (upper_right.center) -- (upper_left.center) -- (lower_left.center) -- (lower_right.center) -- (upper_right.center);
-
-            % draw a periodic orbit
-            \coordinate (center) at (0,0,2);
-            \node[below right] (x0) at (0,2,2) {\(\vecbf{q}_0\)};
-            \filldraw (0,2,2) circle (3pt);
-
-            \node[below right] (x1) at (0,3,2) {\(\vecbf{q}_1\)};
-            \filldraw (0,3,2) circle (3pt);
-
-            \tdplotdrawarc[orbit hidden]{(center)}{2}{90}{190}{}{};
-            \tdplotdrawarc[orbit,<-]{(center)}{2}{-170}{90}{}{};
-
-            \tdplotdrawarc[orbit hidden]{(center)}{3}{90}{199}{}{};
-            \tdplotdrawarc[orbit,<-]{(center)}{3}{-161}{90}{}{};
-
-            \end{tikzpicture}
-            \end{scaletikzpicturetowidth}
-            \caption*{Diagram of the \Poincare map\label{fig:poincare_map}}
-        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-        \begin{subfigure}[htbp]{0.5\columnwidth} 
             \begin{scaletikzpicturetowidth}{\columnwidth}
             \begin{tikzpicture}[tdplot_main_coords,
             poincare/.style={opacity=.2,very thick,fill=blue},
@@ -260,110 +297,46 @@
             \end{tikzpicture}
             \end{scaletikzpicturetowidth}
             \caption*{Reachability set on a \Poincare section\label{fig:reachability_set}}
-        \end{subfigure}
     \end{figure}
 
 
-	\begin{itemize}
-		\item \Emph{\Poincare} map is a useful tool for the analysis of dynamical systems
+    \begin{itemize}
+        \item \Emph{\Poincare} map is a useful tool in the analysis of dynamical systems
         \begin{itemize}
+            \item Enables visualization of complicated systems - intrinsic structure becomes visible to the engineer
             \item Rather than considering the entire state (6D position and velocity) we simply investigate the intersections with a lower dimensional space
-            \item This reduces the complexity of analysising the dynamics and allows for visualization of highly complex dynamic interactions
+            \item This reduces the complexity of analyzing the dynamics and allows for visualization of highly complex dynamic interactions
         \end{itemize} 
-        \item A periodic orbit on the \Poincare map is identified by fixed points \( \vecbf{q}_0 \) and \( \vecbf{q}_1 \)
+        \item A periodic orbit on the \Poincare map is identified by fixed points \( \vecbf{x}_n\)
         \item Using the low-thrust propulsion system of the spacecraft we can enlarge the space that is achievable 
         \begin{itemize}
             \item \Emph{Reachability Set} - the set of states which are attainable subject to the constraints of the system
             \item The thruster of the spacecraft is used to design a transfer trajectory by repeatedly maximizing the reachability set
+            \item Thruster allows us to depart from the fixed orbit and intersect at a new state \( \vecbf{x}_f\)
         \end{itemize}
-
-	\end{itemize}
-
-    \begin{minipage}{0.5\columnwidth}
-    \begin{itemize}
-        \item \Emph{Optimal Control} is used to calculate the reachability set
-            \[
-            J = -\frac{1}{2} \left( \vecbf{x}(t_f) - \vecbf{x}_{n}(t_f)\right)^T Q \left( \vecbf{x}(t_f) - \vecbf{x}_{n}(t_f)\right) 
-            \]
-        \item The goal is to maximize the distance on the \Poincare section using the effect of the low thrust propulsion
-        \item The thruster is limited to ensure a realistic scenario
-        \[
-            c(\vecbf{u}) = \vecbf{u}^T \vecbf{u} - u_m^2 \leq 0 
-        \]
-    \end{itemize}
-    
-    \end{minipage}%
-    \begin{minipage}{0.5\columnwidth}
+        \item \Emph{Reachability Set} is computed on the \Poincare section and provides additional insight
         \begin{itemize}
-            \item A series of constraints ensures that we will intersect the \Poincare section
+            \item Spacecraft can only move to areas inside of the reachable set
         \end{itemize}
-                \begin{align*}\label{eq:terminal_constraints}
-            \begin{split}
-                m_1 &= y = 0  \\
-                m_2 &= \parenth{\sin \phi_{1_{d}}} \parenth{ x_1^2 + x_2^2 + x_3^2 + x_4^2} - x_1^2 = 0 \\
-                m_3 &= \parenth{\sin \phi_{2_{d}}} \parenth{ x_2^2 + x_3^2 + x_4^2} - x_2^2 = 0\\
-                m_4 &= \parenth{\sin \phi_{3_{d}}} \parenth{ 2 x_3^2 + 2 x_3 \sqrt{x_4^2 + 2 x_4^2}} - x_3 - \sqrt{x_4^2 + x_3^2} = 0 
-            \end{split}
-        \end{align*}
+    \end{itemize}
 
-    \end{minipage}
 \end{block} % end of optimal control block
-\end{column}
-
-
-%-----------------------------------------------------------------------------------------
-% THIRD (RIGHT) COLUMN
-%---------------------------------------------------------------------------------------
-\begin{column}{\onecolwidth} % third column start
-
-\begin{block}{Simulation Results} % results block
-	\begin{itemize}
-		\item A transfer around the asteroid 4769 Castalia is completed
-        \begin{itemize}
-            \item Discovered in 1989, Castalia is a potentially hazardous asteroid and passes close to the Earth
-            \item In 1989, Castalia passed close enough to the Earth to allow for high resolution radar imagery
-        \end{itemize}
-        \item We wish to transfer a spacecraft between two periodic orbits of 4769 Castalia
-        \begin{itemize}
-            \item The thruster is modeled after current state of the art low thrust propulsion systems
-            \item Combining multiple iterations of the \Emph{rechability} computation allows for general transfers
-        \end{itemize}
-        \item Transfer is computed by combining four iterations of the reachability set
-        \begin{itemize}
-            \item Each iteration of the reachability set enlarges the achievable states
-            \item From the reachability set we chose a direction which gets us closest to the target
-        \end{itemize}
-    \end{itemize}
-    \begin{figure}[htbp] 
-        \centering 
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-            \includegraphics[width=\textwidth]{figures/poincare_xvsxdot.pdf} 
-            \caption*{\(x~\text{vs.}~\dot{x} \)}
-        \end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-        \begin{subfigure}[htbp]{0.5\textwidth} 
-            \includegraphics[width=\textwidth]{figures/poincare_zvszdot.pdf} 
-            \caption*{\(z~\text{vs.}~\dot{z} \)} 
-        \end{subfigure}
-        \caption*{\Poincare sections}
-        
-    \end{figure}
-    \begin{figure}[htbp] 
-        \centering 
-        \includegraphics[width=\columnwidth]{figures/trajectory_3d.pdf}
-        \caption*{Transfer Trajectory}
-    \end{figure}
-
-
-\end{block} % end of results block
 
 \begin{block}{Conclusions} % conclusion
 	\begin{itemize}
-		\item Orbital transfer around an asteroid using \Emph{reachability sets}
+		\item Demonstrate a transfer around an asteroid using multiple \Emph{reachability sets}
+        \begin{itemize}
+            \item Each reachability set moves the spacecraft towards the target
+        \end{itemize}
+        \item Alleviates the need for selecting accurate initial guesses 
 		\item Automatically gain insight into the feasible region of motion for the spacecraft
-        \item Future work will extend this principle to landing trajectories
+        \item Future work will extend this principle to landing trajectories on asteroids
         \begin{itemize}
             \item Irregular shape of asteroids requires innovative techniques for controlling both position and orientation
+            \item Nonlinear control allows for the exploitation of the coupled dynamics
+            \item Complex dynamics requires accurate integration schemes - \Emph{Variational Integrators}
         \end{itemize}
+        \item Successful extension of previous work in the circular restricted three-body problem
 	\end{itemize}
 \end{block} % conclusion
 \end{column}  % third column end
